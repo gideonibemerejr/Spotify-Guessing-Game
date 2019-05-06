@@ -29,10 +29,12 @@ button#primary,
 button#secondary {
   font-size: 3vmin;
   border-radius: 5px;
-  width: 30vmin;
-  height: 9vmin;
+  min-width: 40vmin;
+  height: 11vmin;
 }
-
+h2 {
+  font-size: 5vmin;
+}
 h1#content {
   margin: 10px;
   font-weight: 700;
