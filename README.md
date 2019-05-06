@@ -36,9 +36,8 @@ As a user, I want to be able to learn the rules then start playing the game. I s
 
 #### HTML
 
-```
+```html
 <!DOCTYPE html>
-
 <!-- Display the Game Title (Static Text)  -->
 <!-- 1 Display the Game "Board" (Main or Section) -->
     <!-- The Artist's name (Dynamic Text) -->
@@ -53,17 +52,24 @@ As a user, I want to be able to learn the rules then start playing the game. I s
 
 ##### Reusable Variables
 
+```css
+/* Background Gradient */
+/* Primary Color */
+/* Inter UI font or Proxima Nova */
 ```
-// Background Gradient
-// Primary Color
-// Inter UI font or Proxima Nova
-// Elements:
+
+##### 
+
+```css
+/* 
+Elements to Style:
     // h1
     // h2.artist__name
     // iframe
     // h2.feedback
     // input[radio buttons]
     // button#{multipleids}
+*/
 ```
 
 #### JS
