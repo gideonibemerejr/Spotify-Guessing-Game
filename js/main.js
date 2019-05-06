@@ -5,9 +5,6 @@ class Artist = {
         this.country = country;
         this.spotify = spotify;
     }
-    mountSong(){
-
-    }
 }
 
 const Skepta = new Artist('Skepta', "")
@@ -28,7 +25,7 @@ const Skepta = new Artist('Skepta', "")
         // enable controls
         
 /*----- app's state (variables) -----*/
-
+// result, score
 /*----- cached element references -----*/
 // Game Title
 // Game "Board"

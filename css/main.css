@@ -1,0 +1,40 @@
+/***************** 
+Normalize + Typography + Styles
+******************/
+@import url("https://rsms.me/inter/inter.css");
+:root {
+  --primary: #030023;
+}
+
+html,
+* {
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter";
+  color: var(--primary);
+}
+
+button#secondary {
+  background-color: transparent;
+  border: 1px solid var(--primary);
+}
+
+button#primary,
+button#secondary {
+  font-size: 3vmin;
+  border-radius: 5px;
+  width: 30vmin;
+  height: 9vmin;
+}
+
+h1#content {
+  margin: 10px;
+  font-weight: 700;
+  font-size: 50vmin;
+}
