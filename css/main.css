@@ -1,19 +1,25 @@
 /***************** 
 Normalize + Typography + Styles
 ******************/
+
 @import url("https://rsms.me/inter/inter.css");
 :root {
   --primary: #030023;
   --gradient: linear-gradient(180deg, rgba(0, 255, 136, 0.61) 0%, #0700b8 100%);
 }
-
+@counter-style countries {
+  system: fixed;
+  symbols: 🇺🇸 🇧🇷 🇬🇧 🇫🇷 🇳🇬;
+  suffix: " ";
+}
 html,
 * {
   box-sizing: border-box;
 }
 div#input,
 body,
-section {
+section,
+main {
   display: flex;
 }
 body {
@@ -27,7 +33,32 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
 }
+ul {
+  list-style: countries;
+}
 
+ul#rules,
+ol {
+  max-width: 800px;
+  min-width: 200px;
+  list-style-type: none;
+  padding: 0;
+  display: inline-block;
+}
+ul#rules li,
+ol li {
+  font-size: 5vmin;
+  line-height: 140%;
+}
+ul li {
+  margin: 0 0 2rem 0;
+  padding-left: 2rem;
+  font-size: 5vmin;
+}
+ol span,
+ul span {
+  font-weight: 700;
+}
 .primary {
   background-color: var(--primary);
   color: white;
@@ -52,34 +83,46 @@ h2 {
 }
 
 h2#feedback {
-  margin: 1rem 0 2rem 0;
+  display: none;
+  margin: 1rem 0 1rem 0;
 }
 
 h2#title {
-  margin: 1rem 0 0 0;
+  margin: 1rem 0 1rem 0;
 }
-
 h1#artist__name {
+  font-size: 6vmin;
+  text-align: center;
+  display: none;
+}
+h1#countdown {
   font-weight: 700;
   font-size: 50vmin;
   margin: 0;
   line-height: 1;
+  display: none;
 }
 iframe {
-  display: none;
   margin: 1rem;
 }
 section {
   align-items: center;
   justify-content: center;
 }
+
+main {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 div#input {
+  display: none;
   justify-content: space-evenly;
 }
 
 p {
   font-size: 5vmin;
-  margin: 1rem 2rem 2rem 2rem;
+  margin: 1rem 2rem 1rem 2rem;
 }
 
 p:hover {
