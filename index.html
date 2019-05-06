@@ -9,12 +9,32 @@
   </head>
   <body>
     <!-- Display the Game Title  -->
-    <h2>Spotify Guessing Game</h2>
+    <h2 id="title">Spotify Guessing Game</h2>
     <!-- Display the Game "Board" -->
-    <main>
-      <h1 id="content">5</h1>
+    <main id="board">
+      <section id="content">
+        <h1 id="artist__name">5</h1>
+        <iframe
+          src=""
+          width="300"
+          height="380"
+          frameborder="0"
+          allowtransparency="true"
+          allow="encrypted-media"
+        ></iframe>
+      </section>
+      <h2 id="feedback">Press Play</h2>
+      <div id="input">
+        <p role="image" aria-label="USA-flag">🇺🇸</p>
+        <p role="image" aria-label="Brazil-flag">🇧🇷</p>
+        <p role="image" aria-label="Great-Britain-flag">🇬🇧</p>
+        <p role="image" aria-label="France-flag">🇫🇷</p>
+        <p role="image" aria-label="Nigeria-flag">🇳🇬</p>
+      </div>
     </main>
-    <button id="secondary">Continue</button>
+    <div id="button">
+      <button id="first" class="secondary">Continue</button>
+    </div>
     <!-- The board has the following:-->
     <!-- The Track (audio player) -->
     <!-- The Artist(with a link to their Spotify profile) -->

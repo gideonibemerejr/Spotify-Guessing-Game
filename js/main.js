@@ -1,38 +1,45 @@
 /*----- constants -----*/
 
-// Create an Artist Class that initializes the following properties:
 // name -- artist's name
-// song -- song link for Spotify play button
-// emoji -- country that the artist is from
-// Spotify artist url -- link to spotify information for the artist
+
+// Create an Artist Class that initializes the following properties:
 class Artist {
-  constructor(name, country, spotify) {
+  constructor(name, country, link) {
     this.name = name;
+    // country -- country that the artist is from
     this.country = country;
-    this.spotify = spotify;
+    // link -- song link for Spotify play button
+    this.link = link;
   }
   get song() {
     return this.mountSong();
   }
   mountSong() {
-    return this.spotify;
+    return this.link;
   }
 }
 
-const skepta = new Artist("Skepta", "England", "spotify:track:1ATVSVN4kc8S2XE7FdyJi8"),
-  burna = new Artist("Burna Boy", "Nigeria",""),
-  roddy = new Artist("Roddy Ricch", "USA",""),
+const skepta = new Artist(
+    "Skepta",
+    "England",
+    "spotify:track:1ATVSVN4kc8S2XE7FdyJi8"
+  ),
+  burna = new Artist("Burna Boy", "Nigeria", ""),
+  roddy = new Artist("Roddy Ricch", "USA", ""),
   vegedream = new Artist("Vegedream", "France", ""),
   chambao = new Artist("Chambao", "Spain", ""),
-  dkvpz = new Artist("Dkvpz", "Brazil", ""),
+  dkvpz = new Artist("Dkvpz", "Brazil", "");
 
+const artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
 
+const playedArtists = [];
 
+console.log(artists);
 // mountSong method?
 // get the Artist.song (song link for Spotify play button)
-// change the href in the Spotify Play Button to Artist.song
-// change feedback to "Make sure you listen to the whole song"
-// show disabled
+// TODO: change the href in the Spotify Play Button to Artist.song
+// TODO: change feedback to "Make sure you listen to the whole song"
+// TODO: show disabled
 
 // promptGuess?
 // after 20 seconds change the feedback to ask where are they from?
@@ -40,35 +47,54 @@ const skepta = new Artist("Skepta", "England", "spotify:track:1ATVSVN4kc8S2XE7Fd
 
 /*----- app's state (variables) -----*/
 
-// result, score, artistName, track, button[id]
+let result, score, artist, trackLink, button;
 
 /*----- cached element references -----*/
 // Game "Board"
-// The Artist
-// The Audio Player
-// Feedback
-// Input
-// Button
-// #First
-// #Second
-// #Play
-// #Continue Playing
-// #Restart
+const board = document.getElementById("board"),
+  // The Artist title
+  artistTitle = document.getElementById("artist__name"),
+  // The Audio Player
+  audioPlayer = document.querySelector("iframe"),
+  // Feedback
+  feedback = document.getElementById("feedback"),
+  // Input
+  input = document.getElementById("input"),
+  // Button (different states toggled with ids )
+  // #first -- first continue button show with rules
+  firstButton = document.getElementById("first"),
+  // #second -- second contin
+  secondButton = document.getElementById("second"),
+  // #play
+  playButton = document.getElementById("play"),
+  // #continue
+  continueButton = document.getElementById("continue"),
+  // #restart
+  restartButton = document.getElementById("restart");
 
 /*----- event listeners -----*/
 
 // Button - 'click' (5)
+document.getElementById("button").addEventListener("click", buttonClickHandler);
+
 // Input - 'click'/'select'
+input.addEventListener("click", inputClickHandler);
 
 /*----- functions -----*/
 
-// init -- randomly select first artist
+// init -- empties playedArtists, randomly select an Artist from artists[], mounts song
+
+// render -- takes in artist & trackLink shows song iframe,  and artist's name + press play feedback
 
 // countdown -- counts user down from 5 and runs mountSong
+function buttonClickHandler(e) {
+  console.log(e.target.id);
+}
+function inputClickHandler(e) {
+  console.log(e.target);
+}
 
-// buttonClickHandler
-
-// render -- shows song iframe and artist's name + press play feedback
+// getArtist -- return artist
 
 // mountSong -- method to return this.song
 

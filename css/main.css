@@ -11,34 +11,77 @@ html,
 * {
   box-sizing: border-box;
 }
+div#input,
+body,
+section {
+  display: flex;
+}
 body {
   height: 100vh;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: "Inter";
   color: var(--primary);
   background: var(--gradient);
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
-button#secondary {
+.primary {
+  background-color: var(--primary);
+  color: white;
+}
+.secondary {
   background-color: transparent;
   border: 1px solid var(--primary);
+  color: var(--primary);
 }
 
-button#primary,
-button#secondary {
+.primary,
+.secondary {
   font-size: 3vmin;
   border-radius: 5px;
   min-width: 40vmin;
   height: 11vmin;
+  margin: 1rem;
 }
 h2 {
   font-size: 5vmin;
+  text-align: center;
 }
-h1#content {
-  margin: 10px;
+
+h2#feedback {
+  margin: 1rem 0 2rem 0;
+}
+
+h2#title {
+  margin: 1rem 0 0 0;
+}
+
+h1#artist__name {
   font-weight: 700;
   font-size: 50vmin;
+  margin: 0;
+  line-height: 1;
+}
+iframe {
+  display: none;
+  margin: 1rem;
+}
+section {
+  align-items: center;
+  justify-content: center;
+}
+div#input {
+  justify-content: space-evenly;
+}
+
+p {
+  font-size: 5vmin;
+  margin: 1rem 2rem 2rem 2rem;
+}
+
+p:hover {
+  cursor: pointer;
 }
