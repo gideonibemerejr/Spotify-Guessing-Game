@@ -25,7 +25,8 @@ const Skepta = new Artist('Skepta', "")
         // enable controls
         
 /*----- app's state (variables) -----*/
-// result, score
+// result, score, artistName, track, button[id]
+
 /*----- cached element references -----*/
 // Game Title
 // Game "Board"

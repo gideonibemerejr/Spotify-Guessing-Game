@@ -31,3 +31,97 @@ As a user, I want to be able to learn the rules then start playing the game. I s
    - Show the selection buttons
    - Update Score
    - Render
+
+### Pseudocode
+
+#### HTML
+
+```
+<!DOCTYPE html>
+
+<!-- Display the Game Title (Static Text)  -->
+<!-- 1 Display the Game "Board" (Main or Section) -->
+    <!-- The Artist's name (Dynamic Text) -->
+    <!-- The Track (Spotify audio player) -->
+    <!-- Feedback -->
+    <!-- Display User input -->
+<!-- 1 Display the Game "Board" -->
+<!-- Footer (Text) -->
+```
+
+#### CSS
+
+##### Reusable Variables
+
+```
+// Background Gradient
+// Primary Color
+// Inter UI font or Proxima Nova
+// Elements:
+    // h1
+    // h2.artist__name
+    // iframe
+    // h2.feedback
+    // input[radio buttons]
+    // button#{multipleids}
+```
+
+#### JS
+
+```
+/*----- constants -----*/
+
+// Create an Artist Class that initializes the following properties:
+    // name -- artist's name
+    // song -- song link for Spotify play button
+    // emoji -- country that the artist is from
+    // Spotify artist url -- link to spotify information for the artist
+
+    // mountSong method?
+        // get the Artist.song (song link for Spotify play button)
+        // change the href in the Spotify Play Button to Artist.song
+        // change feedback to "Make sure you listen to the whole song"
+        // show disabled
+
+    // promptGuess?
+        // after 20 seconds change the feedback to ask where are they from?
+        // enable controls
+
+/*----- app's state (variables) -----*/
+
+// result, score, artistName, track, button[id]
+
+/*----- cached element references -----*/
+// Game "Board"
+// The Artist
+// The Audio Player
+// Feedback
+// Input
+// Button
+    // #First
+    // #Second
+    // #Play
+    // #Continue Playing
+    // #Restart
+
+/*----- event listeners -----*/
+
+// Button - 'click' (5)
+// Input - 'click'/'select'
+
+/*----- functions -----*/
+
+// init -- randomly select first artist
+
+// countdown -- counts user down from 5 and runs mountSong
+
+// buttonClickHandler
+
+// render -- shows song iframe and artist's name + press play feedback
+
+// mountSong -- method to return this.song
+
+// Counter -- counts down and then runs promptGuess
+
+// promptGuess -- function to remove board and ask for guess
+```
