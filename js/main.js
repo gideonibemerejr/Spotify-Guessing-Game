@@ -1,24 +1,20 @@
 /*----- constants -----*/
 
-// name -- artist's name
-
-// Create an Artist Class that initializes the following properties:
+// Artist Class that initializes the following properties:
 class Artist {
   constructor(name, country, link) {
+    // name -- artist's name
     this.name = name;
     // country -- country that the artist is from
     this.country = country;
     // link -- song link for Spotify play button
     this.link = link;
   }
-  get song() {
-    return this.mountSong();
-  }
   mountSong() {
     return this.link;
   }
 }
-
+// Artists featured in the game
 const skepta = new Artist(
     "Skepta",
     "England",
@@ -49,9 +45,10 @@ const skepta = new Artist(
     "Brazil",
     `<iframe src="https://open.spotify.com/embed/track/4CnVCvv9e5DHrOWXvNbJV1" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`
   );
-
+// Array of artist objects to access
 const artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
 
+// Array where artist objects will be stored in order to mark them as played
 let playedArtists = [];
 
 // mountSong method?
@@ -80,18 +77,7 @@ const playerHolder = document.getElementById("content"),
   // Feedback
   feedback = document.getElementById("feedback"),
   // Input
-  input = document.getElementById("input"),
-  // Buttons (different states toggled with ids )
-  // #first -- first continue button shown with rules but before flags
-  firstButton = document.getElementById("first"),
-  // #second -- second continue button shown with flags but before countdown
-  secondButton = document.getElementById("second"),
-  // #play -- stops countdown and starts game on click
-  playButton = document.getElementById("play"),
-  // #continue
-  continueButton = document.getElementById("continue"),
-  // #restart
-  restartButton = document.getElementById("restart");
+  input = document.getElementById("input");
 
 /*----- event listeners -----*/
 
@@ -104,22 +90,22 @@ input.addEventListener("click", inputClickHandler);
 //iframe - 'click'
 
 /*----- functions -----*/
-// init -- empties playedArtists, randomly select an Artist from artists[], mounts song, make button
+// init -- empties playedArtists, randomly select an Artist from artists[],
 function init() {
   playedArtists = [];
   result = null;
   score = null;
   artist = getArtist();
-  artist.mountSong;
-  render();
+}
+
+function mountButton(targetButton) {
+  button = targetButton;
+  render(targetButton);
 }
 
 // render -- takes in artist, trackLink, button,  shows song iframe,  and artist's name + press play feedback
-function render() {
-  // playerHolder.innerHTML = artist.song;
-  if (button == firstButton) {
-    console.log(button);
-    console.log(firstButton);
+function render(targetButton) {
+  if (targetButton.id === "first") {
     textHolder.innerHTML = `
       <ul>
         <li>USA</li>
@@ -129,23 +115,54 @@ function render() {
         <li>Nigeria</li>
       </ul>
     `;
+    button.id = "second";
+    return;
   }
-  if (button == secondButton) {
-    alert("worked!");
+  if (targetButton.id === "second") {
+    textHolder.innerHTML = ``;
+    countdownText.style.display = "block";
+    button.id = "play";
+    button.classList.remove("secondary");
+    button.classList.add("primary");
+    button.textContent = "Play Game!";
+
+    return;
+  }
+  if (targetButton.id === "play") {
+    console.log("working");
+    button.id = "continue";
+    button.classList.remove("primary");
+    button.classList.add("secondary");
+    button.textContent = "Continue";
+    button.style.display = "none";
+    init();
+    countdownText.style.display = "none";
+    playerHolder.innerHTML = artist.mountSong();
+    feedback.style.display = "block";
+    button.id = "Continue";
+    return;
   }
 }
 // countdown -- counts user down from 5 and runs mountSong
 function buttonClickHandler(e) {
-  if (e.target == firstButton) {
-    button = e.target;
-    render();
-    console.log(button);
-    button.id = "second";
-  }
-  if (e.target == secondButton) {
-    button = e.target;
-    render();
-    console.log(button);
+  switch (e.target.id) {
+    case "first":
+      mountButton(e.target);
+      break;
+    case "second":
+      mountButton(e.target);
+      break;
+    case "play":
+      mountButton(e.target);
+      break;
+    case "continue":
+      mountButton(e.target);
+      break;
+    case "restart":
+      mountButton(e.target);
+      break;
+    default:
+      console.log("wtf");
   }
 }
 // when input is clicked
