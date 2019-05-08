@@ -86,8 +86,6 @@ let result, score, artist, button, player;
 // Game "Board"
 const playerHolder = document.getElementById("content"),
   textHolder = document.getElementById("board"),
-  // The Artist title
-  artistTitle = document.getElementById("artist__name"),
   // The Audio Player
   countdownText = document.getElementById("countdown"),
   // Feedback
@@ -103,7 +101,6 @@ document.getElementById("button").addEventListener("click", buttonClickHandler);
 // Input - 'click'/'select'
 input.addEventListener("click", inputClickHandler);
 
-// TODO: iframe
 /*----- functions -----*/
 
 // init -- empties playedArtists, randomly select an Artist from artists[],
@@ -121,30 +118,20 @@ function init() {
 // render -- takes in artist, trackLink, button,  shows song iframe,  and artist's name + press play feedback
 function render(targetButton) {
   if (targetButton.id === "first") {
-    console.log("first");
-    textHolder.innerHTML = `
-      <ul>
-        <li>USA</li>
-        <li>Brazil</li>
-        <li>UK</li>
-        <li>France</li>
-        <li>Nigeria</li>
-        <li>Spain</li>
-      </ul>
-    `;
-    button.id = "second";
+    mountFirstPage();
     return;
   }
   if (targetButton.id === "second") {
-    console.log("second");
     mountSecondPage();
+    return;
   }
   if (targetButton.id === "play") {
     mountThirdPage();
+    return;
   }
   if (targetButton.id === "continue") {
-    console.log(player);
-    console.log(targetButton);
+    mountFourthPage();
+    return;
   }
 }
 // TODO: countdown -- counts user down from 5 and runs mountSong and/or init or something
@@ -177,12 +164,6 @@ function inputClickHandler(e) {
   console.log(e.target);
 }
 
-// when iframe is clicked
-function iframeClickHandler(e) {
-  console.log(e.target);
-  
-}
-
 // getArtist -- changes global artist state variable to random artist from the array
 function getArtist() {
   return (artist = artists[Math.floor(Math.random() * artists.length)]);
@@ -197,8 +178,23 @@ function mountButton(targetButton) {
 }
 
 /*-- Mounting Function to run inside render() --*/
+function mountFirstPage() {
+  console.log("first");
+  textHolder.innerHTML = `
+      <ul>
+        <li>USA</li>
+        <li>Brazil</li>
+        <li>UK</li>
+        <li>France</li>
+        <li>Nigeria</li>
+        <li>Spain</li>
+      </ul>
+    `;
+  button.id = "second";
+}
 
 function mountSecondPage() {
+  console.log("second");
   textHolder.innerHTML = ``;
   countdownText.style.display = "block";
   button.id = "play";
@@ -209,24 +205,29 @@ function mountSecondPage() {
 }
 // This begins gameplay
 function mountThirdPage() {
-  console.log("working");
+  console.log("third");
   button.id = "continue";
   button.classList.remove("primary");
   button.classList.add("secondary");
   button.textContent = "Continue";
-  button.style.display = "none";
   init();
   countdownText.style.display = "none";
   playerHolder.innerHTML = artist.mountSong();
   feedback.style.display = "block";
-  player = document.querySelector("iframe").contentDocument;
-  player.body.onclick = iframeClickHandler;
+  player = document.querySelector("iframe").contentWindow;
   console.log(artist);
-  return;
 }
-// function mountFirstPage() {
-//   return;
-// }
+
+function mountFourthPage() {
+  console.log("fourth");
+  playerHolder.innerHTML = ``;
+  board.innerHTML = `
+      <h2>Where is</h2>
+      <h1 id="artist__name">${artist.name}</h1>
+      <h2>From?</h2>`;
+  feedback.style.display = "none";
+}
+
 // function mountFirstPage() {
 //   return;
 // }
