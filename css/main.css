@@ -9,7 +9,7 @@ Normalize + Typography + Styles
 }
 @counter-style countries {
   system: fixed;
-  symbols: 🇺🇸 🇧🇷 🇬🇧 🇫🇷 🇳🇬;
+  symbols: "\01F1FA\01F1F8""\01F1E7\01F1F7""\01F1EC\01F1E7""\01F1EB\01F1F7""\01F1F3\01F1EC""\01F1EA\01F1F8";
   suffix: " ";
 }
 html,
@@ -19,7 +19,8 @@ html,
 div#input,
 body,
 section,
-main {
+main,
+footer {
   display: flex;
 }
 body {
@@ -32,6 +33,7 @@ body {
   background: var(--gradient);
   background-repeat: no-repeat;
   background-size: contain;
+  overflow: hidden;
 }
 ul {
   list-style: countries;
@@ -58,6 +60,9 @@ ul li {
 ol span,
 ul span {
   font-weight: 700;
+}
+h2 span {
+  font-size: 20vmin;
 }
 .primary {
   background-color: var(--primary);
@@ -91,10 +96,13 @@ h2#feedback {
 h2#title {
   margin: 1rem 0 1rem 0;
 }
+h1 {
+  font-size: 10vmin;
+  margin: 0;
+}
 h1#artist__name {
-  font-size: 6vmin;
+  font-size: 10vmin;
   text-align: center;
-  display: none;
 }
 h1#countdown {
   font-weight: 700;
@@ -107,6 +115,7 @@ iframe {
   margin: 1rem;
 }
 section {
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -128,4 +137,10 @@ p {
 
 p:hover {
   cursor: pointer;
+}
+
+footer {
+  align-items: center;
+  justify-content: center;
+  position: bottom;
 }
