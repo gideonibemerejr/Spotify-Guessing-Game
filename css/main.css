@@ -9,7 +9,7 @@ Normalize + Typography + Styles
 }
 @counter-style countries {
   system: fixed;
-  symbols: 🇺🇸 🇧🇷 🇬🇧 🇫🇷 🇳🇬;
+  symbols: "\01F1FA\01F1F8""\01F1E7\01F1F7""\01F1EC\01F1E7""\01F1EB\01F1F7""\01F1F3\01F1EC""\01F1EA\01F1F8";
   suffix: " ";
 }
 html,
@@ -19,7 +19,8 @@ html,
 div#input,
 body,
 section,
-main {
+main,
+footer {
   display: flex;
 }
 body {
@@ -128,4 +129,10 @@ p {
 
 p:hover {
   cursor: pointer;
+}
+
+footer {
+  align-items: center;
+  justify-content: center;
+  position: bottom;
 }

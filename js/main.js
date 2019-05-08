@@ -14,6 +14,7 @@ class Artist {
     // text color
     this.tc = tc;
   }
+  // mountSong -- method to return this.song
   mountSong() {
     return this.link;
   }
@@ -67,13 +68,13 @@ const artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
 // Array where artist objects will be stored in order to mark them as played
 let playedArtists = [];
 
-// mountSong method?
-// get the Artist.song (song link for Spotify play button)
+// Done: mountSong method?
+// TODO: get the Artist.song (song link for Spotify play button)
 // TODO: change the href in the Spotify Play Button to Artist.song
 // TODO: change feedback to "Make sure you listen to the whole song"
 // TODO: show disabled
 
-// promptGuess?
+// TODO: promptGuess?
 // after 20 seconds change the feedback to ask where are they from?
 // enable controls
 
@@ -102,7 +103,7 @@ document.getElementById("button").addEventListener("click", buttonClickHandler);
 // Input - 'click'/'select'
 input.addEventListener("click", inputClickHandler);
 
-// iframe
+// TODO: iframe
 /*----- functions -----*/
 
 // init -- empties playedArtists, randomly select an Artist from artists[],
@@ -113,26 +114,14 @@ function init() {
   artist = getArtist();
 }
 
-// mountSong -- method to return this.song
-
 // Counter -- counts down and then runs promptGuess
 
 // promptGuess -- function to remove board and ask for guess
 
-// mountButton -- change button to the target and render the button
-function mountButton(targetButton) {
-  button = targetButton;
-  render(targetButton);
-}
-
-// getArtist -- return artist
-function getArtist() {
-  return (artist = artists[Math.floor(Math.random() * artists.length)]);
-}
-
 // render -- takes in artist, trackLink, button,  shows song iframe,  and artist's name + press play feedback
 function render(targetButton) {
   if (targetButton.id === "first") {
+    console.log("first");
     textHolder.innerHTML = `
       <ul>
         <li>USA</li>
@@ -140,41 +129,27 @@ function render(targetButton) {
         <li>UK</li>
         <li>France</li>
         <li>Nigeria</li>
+        <li>Spain</li>
       </ul>
     `;
     button.id = "second";
     return;
   }
   if (targetButton.id === "second") {
-    textHolder.innerHTML = ``;
-    countdownText.style.display = "block";
-    button.id = "play";
-    button.classList.remove("secondary");
-    button.classList.add("primary");
-    button.textContent = "Play Game!";
-
-    return;
+    console.log("second");
+    mountSecondPage();
   }
   if (targetButton.id === "play") {
-    console.log("working");
-    button.id = "continue";
-    button.classList.remove("primary");
-    button.classList.add("secondary");
-    button.textContent = "Continue";
-    button.style.display = "none";
-    init();
-    countdownText.style.display = "none";
-    playerHolder.innerHTML = artist.mountSong();
-    feedback.style.display = "block";
-    player = document.querySelector("iframe").contentDocument;
-    player.body.onmousedown = iframeClickHandler;
-    return;
+    mountThirdPage();
   }
   if (targetButton.id === "continue") {
     console.log(player);
+    console.log(targetButton);
   }
 }
-// countdown -- counts user down from 5 and runs mountSong
+// TODO: countdown -- counts user down from 5 and runs mountSong and/or init or something
+
+// Click handlers for .addEventListeners above
 function buttonClickHandler(e) {
   switch (e.target.id) {
     case "first":
@@ -205,4 +180,53 @@ function inputClickHandler(e) {
 // when iframe is clicked
 function iframeClickHandler(e) {
   console.log(e.target);
+  
 }
+
+// getArtist -- changes global artist state variable to random artist from the array
+function getArtist() {
+  return (artist = artists[Math.floor(Math.random() * artists.length)]);
+}
+
+/*-- Mounting Function --*/
+
+// mountButton -- change button to the target and render the button
+function mountButton(targetButton) {
+  button = targetButton;
+  render(targetButton);
+}
+
+/*-- Mounting Function to run inside render() --*/
+
+function mountSecondPage() {
+  textHolder.innerHTML = ``;
+  countdownText.style.display = "block";
+  button.id = "play";
+  button.classList.remove("secondary");
+  button.classList.add("primary");
+  button.textContent = "Play Game!";
+  return;
+}
+// This begins gameplay
+function mountThirdPage() {
+  console.log("working");
+  button.id = "continue";
+  button.classList.remove("primary");
+  button.classList.add("secondary");
+  button.textContent = "Continue";
+  button.style.display = "none";
+  init();
+  countdownText.style.display = "none";
+  playerHolder.innerHTML = artist.mountSong();
+  feedback.style.display = "block";
+  player = document.querySelector("iframe").contentDocument;
+  player.body.onclick = iframeClickHandler;
+  console.log(artist);
+  return;
+}
+// function mountFirstPage() {
+//   return;
+// }
+// function mountFirstPage() {
+//   return;
+// }
