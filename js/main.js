@@ -1,3 +1,16 @@
+// Initialize
+// 1. Attach event listeners - "Next" Button and "Play" button
+// 2. On first time "Next" button is clicked hide rules and show countries, on second   click:
+// --- Init all state variables - hide rules, set result to null, and score to 0, song to null
+// 3. Render
+// 4. Perform Countdown
+// 5. When the "Play" button is clicked: if in countdown, clear count down
+// 6. After the countdown(either way)
+//   - Randomly pick song to display
+//     - Show the selection buttons
+//       - Update Score
+//         - Render
+
 /*----- constants -----*/
 
 // Artist Class that initializes the following properties:
