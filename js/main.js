@@ -93,7 +93,7 @@ let playedArtists = [];
 
 /*----- app's state (variables) -----*/
 
-let result, score, artist, button, player;
+let result, score, artist, button, player, timerId;
 
 /*----- cached element references -----*/
 // Game "Board"
@@ -131,23 +131,23 @@ function init() {
 // render -- takes in artist, trackLink, button,  shows song iframe,  and artist's name + press play feedback
 function render(targetButton) {
   if (targetButton.id === "first") {
-    mountFirstPage();
-    return;
-  }
-  if (targetButton.id === "second") {
     mountSecondPage();
     return;
   }
-  if (targetButton.id === "play") {
+  if (targetButton.id === "second") {
     mountThirdPage();
     return;
   }
-  if (targetButton.id === "continue") {
+  if (targetButton.id === "play") {
+    clearInterval(timerId);
     mountFourthPage();
     return;
   }
+  if (targetButton.id === "continue") {
+    mountFifthPage();
+    return;
+  }
 }
-// TODO: countdown -- counts user down from 5 and runs mountSong and/or init or something
 
 // Click handlers for .addEventListeners above
 function buttonClickHandler(e) {
@@ -162,6 +162,9 @@ function buttonClickHandler(e) {
       mountButton(e.target);
       break;
     case "continue":
+      mountButton(e.target);
+      break;
+    case "continue-game":
       mountButton(e.target);
       break;
     case "restart":
@@ -190,9 +193,9 @@ function mountButton(targetButton) {
   render(targetButton);
 }
 
-/*-- Mounting Function to run inside render() --*/
-function mountFirstPage() {
-  console.log("first");
+// Functions to run inside render() --*/
+function mountSecondPage() {
+  console.log("second");
   textHolder.innerHTML = `
       <ul>
         <li>USA</li>
@@ -206,41 +209,81 @@ function mountFirstPage() {
   button.id = "second";
 }
 
-function mountSecondPage() {
-  console.log("second");
+function mountThirdPage() {
+  console.log("third");
   textHolder.innerHTML = ``;
   countdownText.style.display = "block";
   button.id = "play";
   button.classList.remove("secondary");
   button.classList.add("primary");
   button.textContent = "Play Game!";
+  firstCountdown(mountFourthPage);
   return;
 }
 // This begins gameplay
-function mountThirdPage() {
-  console.log("third");
+function mountFourthPage() {
+  console.log("fourth");
   button.id = "continue";
+  button.setAttribute("disabled", "");
   button.classList.remove("primary");
   button.classList.add("secondary");
+  button.classList.add("disabled");
   button.textContent = "Continue";
   init();
+  secondCountdown(removeDisable);
   countdownText.style.display = "none";
   playerHolder.innerHTML = artist.mountSong();
   feedback.style.display = "block";
-  player = document.querySelector("iframe").contentWindow;
-  console.log(artist);
 }
 
-function mountFourthPage() {
-  console.log("fourth");
+function mountFifthPage() {
+  console.log("fifth");
+  button.id = "continue-game";
   playerHolder.innerHTML = ``;
   board.innerHTML = `
       <h2>Where is</h2>
       <h1 id="artist__name">${artist.name}</h1>
       <h2>From?</h2>`;
-  feedback.style.display = "none";
+  input.style.display = "flex";
 }
 
+// removes the disabled button attribute, disabled class, and "Play Feedback"
+function removeDisable() {
+  button.removeAttribute("disabled", "");
+  button.classList.remove("disabled");
+  feedback.style.display = "none";
+}
 // function mountFirstPage() {
 //   return;
 // }
+
+/*-- Countdowns --*/
+
+// counts down from 5 and allows user to click button to the guessing screen
+function secondCountdown(cb) {
+  let count = 5;
+  timerId = setInterval(function() {
+    count--;
+    if (count) {
+      return;
+    } else {
+      clearInterval(timerId);
+      cb();
+    }
+  }, 1000);
+}
+
+// counts down from five and starts the game
+function firstCountdown(cb) {
+  let count = 5;
+  countdownText.textContent = count;
+  timerId = setInterval(function() {
+    count--;
+    if (count) {
+      countdownText.textContent = count;
+    } else {
+      clearInterval(timerId);
+      cb();
+    }
+  }, 1000);
+}

@@ -1,8 +1,6 @@
 /***************** 
 Normalize + Typography + Styles
 ******************/
-
-@import url("https://rsms.me/inter/inter.css");
 :root {
   --primary: #030023;
   --gradient: linear-gradient(180deg, rgba(0, 255, 136, 0.61) 0%, #0700b8 100%);
@@ -32,19 +30,30 @@ html,
 * {
   box-sizing: border-box;
 }
-div#input,
+
 body,
 section,
 main,
 footer {
   display: flex;
 }
+
+header {
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-rows: 1fr;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 body {
   height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: "Inter";
+  font-family: "Montserrat", sans-serif;
   color: var(--primary);
   background: var(--gradient6);
   background-repeat: no-repeat;
@@ -80,6 +89,7 @@ ul span {
 h2 span {
   font-size: 20vmin;
 }
+
 .primary {
   background-color: var(--primary);
   border: none;
@@ -87,20 +97,36 @@ h2 span {
 }
 .secondary {
   background-color: transparent;
-  border: 1px solid var(--primary);
+  border: solid 3px var(--primary);
   color: var(--primary);
+}
+.secondary:hover {
+  background-color: var(--primary);
+  color: white;
+}
+.disabled,
+.disabled:hover {
+  background-color: transparent;
+  border: solid 3px #999;
+  color: #999;
 }
 
 .primary,
 .secondary {
-  font-size: 3vmin;
-  border-radius: 5px;
+  font-size: 2vmin;
+  font-weight: 700;
+  border-radius: 50vh;
   min-width: 40vmin;
-  height: 11vmin;
+  height: 10vmin;
   margin: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 2px;
 }
+
 h2 {
   font-size: 5vmin;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -111,18 +137,21 @@ h2#feedback {
 
 h2#title {
   margin: 1rem 0 1rem 0;
+  font-weight: 700;
+  text-align: center;
 }
+
 h1 {
   font-size: 10vmin;
+  font-weight: 700;
   margin: 0;
 }
 
 h1#artist__name {
-  font-size: 10vmin;
   text-align: center;
 }
 h1#countdown {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 50vmin;
   margin: 0;
   line-height: 1;
@@ -141,10 +170,12 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
-div#input {
+#input {
   display: none;
   justify-content: space-evenly;
+  flex-direction: row;
 }
 
 p {
@@ -160,4 +191,31 @@ footer {
   align-items: center;
   justify-content: center;
   position: bottom;
+}
+div > iframe {
+  display: flex;
+  justify-content: center;
+}
+header {
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "frame" "span" "menu1";
+}
+div > iframe {
+  grid-area: frame;
+  display: flex;
+  justify-content: left;
+}
+header > span {
+  grid-area: span;
+}
+div > a {
+  grid-area: menu1;
+  display: flex;
+  justify-content: right;
+  margin: 1rem;
+}
+@media (min-width: 1180px) {
 }
