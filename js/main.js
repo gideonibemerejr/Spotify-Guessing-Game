@@ -1,16 +1,3 @@
-// Initialize
-// 1. Attach event listeners - "Next" Button and "Play" button
-// 2. On first time "Next" button is clicked hide rules and show countries, on second   click:
-// --- Init all state variables - hide rules, set result to null, and score to 0, song to null
-// 3. Render
-// 4. Perform Countdown
-// 5. When the "Play" button is clicked: if in countdown, clear count down
-// 6. After the countdown(either way)
-//   - Randomly pick song to display
-//     - Show the selection buttons
-//       - Update Score
-//         - Render
-
 /*----- constants -----*/
 
 // Artist Class that initializes the following properties:
@@ -80,16 +67,6 @@ let artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
 
 // Array where artist objects will be stored in order to mark them as played
 let playedArtists = [];
-
-// Done: mountSong method?
-// TODO: get the Artist.song (song link for Spotify play button)
-// TODO: change the href in the Spotify Play Button to Artist.song
-// TODO: change feedback to "Make sure you listen to the whole song"
-// TODO: show disabled
-
-// TODO: promptGuess?
-// after 20 seconds change the feedback to ask where are they from?
-// enable controls
 
 /*----- app's state (variables) -----*/
 
@@ -215,6 +192,7 @@ function arrayRemove(array, value) {
     }
   }
 }
+
 /*-- MOUNTING FUNCTIONS --*/
 
 // mountButton -- change button to the target and render the button
