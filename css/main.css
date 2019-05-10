@@ -33,21 +33,14 @@ html,
 
 body,
 section,
-main,
-footer {
+main {
   display: flex;
 }
-
-header {
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
+header,
+footer {
   display: grid;
-  grid-template-rows: 1fr;
-  position: fixed;
-  top: 0;
-  left: 0;
 }
+
 body {
   height: 100vh;
   flex-direction: column;
@@ -55,7 +48,7 @@ body {
   align-items: center;
   font-family: "Montserrat", sans-serif;
   color: var(--primary);
-  background: var(--gradient6);
+  background: var(--gradient4);
   background-repeat: no-repeat;
   background-size: contain;
   overflow: hidden;
@@ -174,40 +167,44 @@ main {
 }
 #input {
   display: none;
-  justify-content: space-evenly;
-  flex-direction: row;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-column-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 
 p {
-  font-size: 5vmin;
-  margin: 1rem 2rem 1rem 2rem;
+  font-size: 10vmin;
+  margin: 0;
 }
 
 p:hover {
   cursor: pointer;
 }
 
-footer {
-  align-items: center;
-  justify-content: center;
-  position: bottom;
-}
 div > iframe {
   display: flex;
   justify-content: center;
 }
 header {
+  width: 100vw;
   justify-content: center;
   align-items: center;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas: "frame" "span" "menu1";
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 div > iframe {
   grid-area: frame;
   display: flex;
   justify-content: left;
 }
+
 header > span {
   grid-area: span;
 }
@@ -216,6 +213,19 @@ div > a {
   display: flex;
   justify-content: right;
   margin: 1rem;
+  text-decoration: none;
+  color: var(--primary);
 }
-@media (min-width: 1180px) {
+
+footer {
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+}
+footer > p {
+  margin: 1rem;
+  text-align: left;
+  font-size: 3vmin;
+  justify-content: flex-start;
 }
