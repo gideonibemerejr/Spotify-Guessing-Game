@@ -1,32 +1,42 @@
-# Wireframes and Pseudocode
+# Spotify Guessing Game v1.0
+
+Players listen to songs from Spotify and guess where the artists are from
+
+## Wireframes and Pseudocode
 
 I used [Figma](https://www.figma.com) to design the UI for ths game. Check out the wireframes, UI, and stylesheet [here](https://www.figma.com/file/COOHN795moEejfb30q6sgKbO/SpotifyGuessingGames_SGGW?node-id=0%3A1).
-User Journey
+
+### User Journey
 
 As a user, I want to be able to learn the rules then start playing the game. I should be able to listen to the song and then have an easy way of guessing what country the artist is from. I want to know if I got the guess correct or incorrect and be able to continue playing the game. After I've guessed all available trivia I want to know how many I've gotten correct and have the option to play again.
-Game Play "Engine"
-Initialize
 
-    Attach event listeners - "Next" Button and "Play" button.
+### Game Play "Engine"
 
-    On first time "Next" button is clicked hide rules and show countries, on second click:
-        Init all state variables - hide rules, set result to null, and score to 0, song to null.
+#### Initialize
 
-    Render
+1. Attach event listeners - "Next" Button and "Play" button.
+2. On first time "Next" button is clicked hide rules and show countries, on second click:
 
-Post "Countdown"
+   - Init all state variables - hide rules, set result to null, and score to 0, song to null.
 
-    When the "Play" button is clicked: if in "Countdown", clear "Countdown"
+3. Render
 
-    After the "Countdown" (either way):
-        Randomly pick song to display
-        Show the selection buttons
-        Update Score
-        Render
+#### Post "Countdown"
 
-Pseudocode
-HTML
+1. When the "Play" button is clicked: if in "Countdown", clear "Countdown"
 
+2. After the "Countdown" (either way):
+
+   - Randomly pick song to display
+   - Show the selection buttons
+   - Update Score
+   - Render
+
+### Pseudocode
+
+#### HTML
+
+```html
 <!DOCTYPE html>
 <!-- Display the Game Title (Static Text)  -->
 <!-- 1 Display the Game "Board" (Main or Section) -->
@@ -36,14 +46,21 @@ HTML
     <!-- Display User input -->
 <!-- 1 Display the Game "Board" -->
 <!-- Footer (Text) -->
+```
 
-CSS
-Reusable Variables
+#### CSS
 
+##### Reusable Variables
+
+```css
 /* Background Gradient */
 /* Primary Color */
 /* Inter UI font or Proxima Nova */
+```
 
+##### 
+
+```css
 /* 
 Elements to Style:
     // h1
@@ -53,9 +70,11 @@ Elements to Style:
     // input[radio buttons]
     // button#{multipleids}
 */
+```
 
-JS
+#### JS
 
+```
 /*----- constants -----*/
 
 // Create an Artist Class that initializes the following properties:
@@ -111,3 +130,4 @@ JS
 // Counter -- counts down and then runs promptGuess
 
 // promptGuess -- function to remove board and ask for guess
+```
