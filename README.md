@@ -30,9 +30,9 @@ Read the rules carefully. Additionally, take the time to listen to the songs and
 
 ### Web API Features
 
-- User data used for song selection
-- Artist data used for in game trivia
-- Track data in place of [Spotify Play Button](https://developer.spotify.com/documentation/widgets/generate/play-button/)
+- [User data](https://developer.spotify.com/documentation/web-api/reference/personalization/get-users-top-artists-and-tracks/) used for song selection
+- [Artist data](https://developer.spotify.com/documentation/web-api/reference/artists/get-several-artists/) used for in game trivia
+- [Track data](https://developer.spotify.com/documentation/web-api/reference/tracks/get-several-tracks/) in place of [Spotify Play Button](https://developer.spotify.com/documentation/widgets/generate/play-button/)
 - Options to guess by City or Genre
 
 ### UI Features
