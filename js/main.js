@@ -103,10 +103,6 @@ function init() {
   score = null;
 }
 
-// Counter -- counts down and then runs promptGuess
-
-// promptGuess -- function to remove board and ask for guess
-
 // render -- takes in artist, trackLink, button,  shows song iframe,  and artist's name + press play feedback
 function render(targetButton) {
   if (targetButton.id === "first") {
