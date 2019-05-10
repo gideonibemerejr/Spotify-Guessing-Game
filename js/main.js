@@ -322,7 +322,6 @@ function mountGameRestart() {
   <h1 id="artist__name">Game Over</h1>
   <h2>Nice!</h2>
   <h2>You got ${score} correct out of ${playedArtists.length} songs</h2>`;
-  playerHolder.innerHTML = `<h1 id="countdown" style="display: block;"></h1>`;
   init();
   mainButton.id = "first";
 }
@@ -352,7 +351,7 @@ function secondCountdown(cb) {
 
 // counts down from five and starts the game
 function firstCountdown(cb) {
-  let count = 5;git 
+  let count = 5;
   countdownText.textContent = count;
   timerId = setInterval(function() {
     count--;
