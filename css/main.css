@@ -57,8 +57,11 @@ body {
 ul {
   list-style: countries;
 }
-
-ul#rules,
+ul#rules {
+  max-width: 400px;
+  min-width: 200px;
+  list-style-type: none;
+}
 ol {
   max-width: 800px;
   min-width: 200px;
@@ -66,6 +69,7 @@ ol {
   padding: 0;
   display: inline-block;
 }
+
 ul#rules li,
 ol li {
   font-size: 5vmin;
@@ -226,7 +230,7 @@ footer {
 }
 footer > p {
   margin: 1rem;
-  text-align: left;
+  text-align: right;
   font-size: 3vmin;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }

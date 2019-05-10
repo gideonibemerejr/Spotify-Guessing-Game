@@ -302,7 +302,7 @@ function mountCorrect() {
   textHolder.innerHTML = `
   <h1 id="artist__name">Correct!</h1>
   <h2>${artist.name} is from ${artist.country}</h2>`;
-  scoreCard.textContent = `${score} out of 6 correct`;
+  scoreCard.textContent = `${score} / 6`;
 }
 
 function mountIncorrect() {
@@ -323,7 +323,7 @@ function mountGameRestart() {
   <h2>Nice!</h2>
   <h2>You got ${score} correct out of ${playedArtists.length} songs</h2>`;
   init();
-  mainButton.id = "first";
+  mainButton.id = "second";
 }
 
 function restartGame() {
