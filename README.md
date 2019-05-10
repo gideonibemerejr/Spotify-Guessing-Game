@@ -1,4 +1,4 @@
-# Spotify Guessing Game – Presentation Mode
+# Spotify Guessing Game
 
 ## Introduction
 
