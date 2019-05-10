@@ -69,14 +69,14 @@ const skepta = new Artist(
     ``
   ),
   dkvpz = new Artist(
-    "Dkvpz",
+    "DKVPZ",
     "Brazil",
     `<iframe src="https://open.spotify.com/embed/track/4CnVCvv9e5DHrOWXvNbJV1" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`,
     ``,
     ``
   );
 // Array of artist objects to access
-const artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
+let artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
 
 // Array where artist objects will be stored in order to mark them as played
 let playedArtists = [];
@@ -132,9 +132,6 @@ function init() {
 
 // render -- takes in artist, trackLink, button,  shows song iframe,  and artist's name + press play feedback
 function render(targetButton) {
-  if (targetButton.id === "restart") {
-    restartGame();
-  }
   if (targetButton.id === "first") {
     mountSecondPage();
     return;
@@ -161,19 +158,22 @@ function render(targetButton) {
     score += 1;
     mountCorrect();
     return;
-  } else if (targetButton.getAttribute("aria-label") !== artist.country) {
+  }
+  if (targetButton.id === "restart") {
+    mountEndGame();
+    return;
+  }
+  if (targetButton.getAttribute("aria-label") !== artist.country) {
     result = false;
     score += 0;
     mountIncorrect();
+    return;
   }
 }
 
 // Click handlers for .addEventListeners above
 function buttonClickHandler(e) {
   switch (e.target.id) {
-    case "restart":
-      mountButton(e.target);
-      break;
     case "first":
       mountButton(e.target);
       break;
@@ -186,13 +186,17 @@ function buttonClickHandler(e) {
     case "continue":
       mountButton(e.target);
       break;
+    case "restart":
+      mount;
+      break;
     case "continue-game":
       if (artists <= 1) {
-        render();
+        mountButton(restartGame());
+      } else {
+        mountButton(e.target);
         break;
       }
-      mountButton(e.target);
-      break;
+
     default:
       console.log("wtf");
   }
@@ -216,12 +220,12 @@ function arrayRemove(array, value) {
 // mountButton -- change button to the target and render the button
 function mountButton(targetButton) {
   button = targetButton;
+  console.log(targetButton);
   render(targetButton);
 }
 
 // Functions to run inside render() --*/
 function mountSecondPage() {
-  console.log("second");
   textHolder.innerHTML = `
       <ul>
         <li>USA</li>
@@ -236,7 +240,6 @@ function mountSecondPage() {
 }
 
 function mountThirdPage() {
-  console.log("third");
   textHolder.innerHTML = ``;
   countdownText.style.display = "block";
   button.id = "play";
@@ -248,7 +251,6 @@ function mountThirdPage() {
 }
 // This begins gameplay
 function mountGame() {
-  console.log("Play!");
   button.id = "continue";
   button.setAttribute("disabled", "");
   button.classList.remove("primary");
@@ -266,7 +268,6 @@ function mountGame() {
 }
 
 function remountGame() {
-  console.log("Play!");
   board.textContent = ``;
   button.id = "continue";
   button.setAttribute("disabled", "");
@@ -284,7 +285,6 @@ function remountGame() {
 }
 
 function mountFifthPage() {
-  console.log("fifth");
   button.textContent = "Continue Playing?";
   playerHolder.innerHTML = ``;
   board.innerHTML = `
@@ -316,24 +316,26 @@ function mountIncorrect() {
 }
 
 function mountEndGame() {
-  mainButton.id = "restart";
   mainButton.textContent = "Play Again";
+  board.innerHTML = ``;
   board.innerHTML = `
   <h1 id="artist__name">Game Over</h1>
   <h2>Nice!</h2>
   <h2>You got ${score} correct out of ${playedArtists.length} songs</h2>`;
+  artists = playedArtists;
+  mainButton.id = "second";
 }
 
 function restartGame() {
   console.log("working");
-  mainButton.id = "second";
-  mainButton.text = "Play Game!";
+  mainButton.id = "restart";
+  return mainButton;
 }
 /*-- Countdowns --*/
 
 // counts down from 5 and allows user to click button to the guessing screen
 function secondCountdown(cb) {
-  let count = 3;
+  let count = 1;
   timerId = setInterval(function() {
     count--;
     if (count) {
