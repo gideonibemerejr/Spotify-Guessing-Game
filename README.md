@@ -42,5 +42,8 @@ Read the rules carefully. Additionally, take the time to listen to the songs and
 - Menu to access rules and legend
 - Background gradient + image
 - Background gradient matching album artwork with graceful transition
-- Bespoke music player
-  _Version 1.0 ESROSN&reg; c/o Gideon Ibemere, Jr_
+- Bespoke music player  
+
+
+
+_Version 1.0 ESROSN&reg; c/o Gideon Ibemere, Jr_
