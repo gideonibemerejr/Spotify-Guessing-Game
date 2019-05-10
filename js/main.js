@@ -160,7 +160,7 @@ function render(targetButton) {
     return;
   }
   if (targetButton.id === "restart") {
-    mountEndGame();
+    mountGameRestart();
     return;
   }
   if (targetButton.getAttribute("aria-label") !== artist.country) {
@@ -187,7 +187,7 @@ function buttonClickHandler(e) {
       mountButton(e.target);
       break;
     case "restart":
-      mount;
+      mountButton(e.target);
       break;
     case "continue-game":
       if (artists <= 1) {
@@ -196,8 +196,8 @@ function buttonClickHandler(e) {
         mountButton(e.target);
         break;
       }
-
     default:
+      console.log(e.target);
       console.log("wtf");
   }
 }
@@ -220,7 +220,6 @@ function arrayRemove(array, value) {
 // mountButton -- change button to the target and render the button
 function mountButton(targetButton) {
   button = targetButton;
-  console.log(targetButton);
   render(targetButton);
 }
 
@@ -240,7 +239,8 @@ function mountSecondPage() {
 }
 
 function mountThirdPage() {
-  textHolder.innerHTML = ``;
+  console.log(textHolder.textContent);
+  textHolder.style.display = "none";
   countdownText.style.display = "block";
   button.id = "play";
   button.classList.remove("secondary");
@@ -263,12 +263,12 @@ function mountGame() {
   console.log(playedArtists);
   secondCountdown(enableButton);
   countdownText.style.display = "none";
-  playerHolder.innerHTML = artist.mountSong();
+  playerHolder.innerHTML += artist.mountSong();
   feedback.style.display = "block";
 }
 
 function remountGame() {
-  board.textContent = ``;
+  textHolder.textContent = ``;
   button.id = "continue";
   button.setAttribute("disabled", "");
   button.classList.remove("primary");
@@ -277,17 +277,17 @@ function remountGame() {
   button.textContent = "Continue";
   artist = getArtist();
   arrayRemove(artists, artist);
-  console.log(playedArtists);
   secondCountdown(enableButton);
   countdownText.style.display = "none";
-  playerHolder.innerHTML = artist.mountSong();
+  playerHolder.innerHTML += artist.mountSong();
   feedback.style.display = "block";
 }
 
 function mountFifthPage() {
+  textHolder.style.display = "block";
   button.textContent = "Continue Playing?";
   playerHolder.innerHTML = ``;
-  board.innerHTML = `
+  textHolder.innerHTML = `
       <h2>Where is</h2>
       <h1 id="artist__name">${artist.name}</h1>
       <h2>From?</h2>`;
@@ -299,7 +299,7 @@ function mountCorrect() {
   mainButton.style.display = "block";
   mainButton.id = "continue-game";
   input.style.display = "none";
-  board.innerHTML = `
+  textHolder.innerHTML = `
   <h1 id="artist__name">Correct!</h1>
   <h2>${artist.name} is from ${artist.country}</h2>`;
   scoreCard.textContent = `${score} out of 6 correct`;
@@ -309,25 +309,28 @@ function mountIncorrect() {
   mainButton.style.display = "block";
   mainButton.id = "continue-game";
   input.style.display = "none";
-  board.innerHTML = `
+  textHolder.innerHTML = `
   <h1 id="artist__name">Oops!</h1>
   <h2>${artist.name} is from ${artist.country}</h2>`;
   scoreCard.textContent = `${score} out of 6 correct`;
 }
 
-function mountEndGame() {
+function mountGameRestart() {
+  artists = playedArtists;
   mainButton.textContent = "Play Again";
-  board.innerHTML = ``;
-  board.innerHTML = `
+  textHolder.innerHTML = `
   <h1 id="artist__name">Game Over</h1>
   <h2>Nice!</h2>
   <h2>You got ${score} correct out of ${playedArtists.length} songs</h2>`;
-  artists = playedArtists;
-  mainButton.id = "second";
+  playerHolder.innerHTML = `<h1 id="countdown" style="display: block;"></h1>`;
+  init();
+  mainButton.id = "first";
 }
 
 function restartGame() {
-  console.log("working");
+  console.log(
+    `This is the ${mainButton} button when the restartGame runs below is its id after we change it to "restart"`
+  );
   mainButton.id = "restart";
   return mainButton;
 }
@@ -349,7 +352,7 @@ function secondCountdown(cb) {
 
 // counts down from five and starts the game
 function firstCountdown(cb) {
-  let count = 5;
+  let count = 5;git 
   countdownText.textContent = count;
   timerId = setInterval(function() {
     count--;
