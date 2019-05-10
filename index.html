@@ -4,13 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <title>Spotify Guessing Game</title>
   </head>
   <body>
+    <header>
+      <div>
+        <iframe
+          src="https://open.spotify.com/follow/1/?uri=spotify:user:gideonibemerejr&size=basic&theme=light&show-count=0"
+          width="95"
+          height="30"
+          scrolling="no"
+          frameborder="0"
+          style="border:none; overflow:hidden; float: left;"
+          allowtransparency="true"
+        ></iframe>
+      </div>
+      <span></span>
+      <div>
+        <a href="#">Menu</a>
+      </div>
+    </header>
     <!-- Display the Game Title  -->
     <h2 id="title">Spotify Guessing Game</h2>
-
     <!-- Display the Game "Board" -->
     <main id="board">
       <ol>
@@ -22,31 +42,23 @@
         <li><span>Guess</span> the country using the emoji flags</li>
       </ul>
     </main>
-
     <section id="content">
-      <h1 id="countdown">5</h1>
+      <h1 id="countdown"></h1>
     </section>
-    <h2 id="feedback">Press Play!</h2>
     <div id="input">
-      <p role="image" aria-label="USA-flag">🇺🇸</p>
-      <p role="image" aria-label="Brazil-flag">🇧🇷</p>
-      <p role="image" aria-label="Great-Britain-flag">🇬🇧</p>
-      <p role="image" aria-label="France-flag">🇫🇷</p>
-      <p role="image" aria-label="Nigeria-flag">🇳🇬</p>
+      <p role="image" aria-label="USA">🇺🇸</p>
+      <p role="image" aria-label="Brazil">🇧🇷</p>
+      <p role="image" aria-label="UK">🇬🇧</p>
+      <p role="image" aria-label="France">🇫🇷</p>
+      <p role="image" aria-label="Nigeria">🇳🇬</p>
+      <p role="image" aria-label="Spain">🇪🇸</p>
     </div>
     <div id="button">
       <button id="first" class="secondary">Continue</button>
     </div>
+    <h2 id="feedback">Press Play!</h2>
     <footer>
-      <iframe
-        src="https://open.spotify.com/follow/1/?uri=spotify:user:gideonibemerejr&size=basic&theme=light&show-count=0"
-        width="95"
-        height="30"
-        scrolling="no"
-        frameborder="0"
-        style="border:none; overflow:hidden; align-content: center;"
-        allowtransparency="true"
-      ></iframe>
+      <p></p>
     </footer>
     <!-- The board has the following:-->
     <!-- The Track (audio player) -->

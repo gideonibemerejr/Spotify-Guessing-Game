@@ -1,11 +1,25 @@
 /***************** 
 Normalize + Typography + Styles
 ******************/
-
-@import url("https://rsms.me/inter/inter.css");
 :root {
   --primary: #030023;
   --gradient: linear-gradient(180deg, rgba(0, 255, 136, 0.61) 0%, #0700b8 100%);
+  --gradient2: linear-gradient(180deg, #2af598 0%, #009efd 100%);
+  --gradient3: linear-gradient(to left, #f2c94c, #f2994a);
+  --gradient4: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+  --gradient5: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(0, 0, 0, 0.15) 100%
+    ),
+    radial-gradient(
+        at top center,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(0, 0, 0, 0.4) 120%
+      )
+      #989898;
+  background-blend-mode: multiply, multiply;
+  --gradient6: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
 }
 @counter-style countries {
   system: fixed;
@@ -16,21 +30,25 @@ html,
 * {
   box-sizing: border-box;
 }
-div#input,
+
 body,
 section,
-main,
-footer {
+main {
   display: flex;
 }
+header,
+footer {
+  display: grid;
+}
+
 body {
   height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: "Inter";
+  font-family: "Montserrat", sans-serif;
   color: var(--primary);
-  background: var(--gradient);
+  background: var(--gradient4);
   background-repeat: no-repeat;
   background-size: contain;
   overflow: hidden;
@@ -64,6 +82,7 @@ ul span {
 h2 span {
   font-size: 20vmin;
 }
+
 .primary {
   background-color: var(--primary);
   border: none;
@@ -71,20 +90,36 @@ h2 span {
 }
 .secondary {
   background-color: transparent;
-  border: 1px solid var(--primary);
+  border: solid 3px var(--primary);
   color: var(--primary);
+}
+.secondary:hover {
+  background-color: var(--primary);
+  color: white;
+}
+.disabled,
+.disabled:hover {
+  background-color: transparent;
+  border: solid 3px #999;
+  color: #999;
 }
 
 .primary,
 .secondary {
-  font-size: 3vmin;
-  border-radius: 5px;
+  font-size: 2vmin;
+  font-weight: 700;
+  border-radius: 50vh;
   min-width: 40vmin;
-  height: 11vmin;
+  height: 10vmin;
   margin: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  letter-spacing: 2px;
 }
+
 h2 {
   font-size: 5vmin;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -95,17 +130,21 @@ h2#feedback {
 
 h2#title {
   margin: 1rem 0 1rem 0;
+  font-weight: 700;
+  text-align: center;
 }
+
 h1 {
   font-size: 10vmin;
+  font-weight: 700;
   margin: 0;
 }
+
 h1#artist__name {
-  font-size: 10vmin;
   text-align: center;
 }
 h1#countdown {
-  font-weight: 700;
+  font-weight: 900;
   font-size: 50vmin;
   margin: 0;
   line-height: 1;
@@ -124,23 +163,69 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0;
 }
-div#input {
+#input {
   display: none;
-  justify-content: space-evenly;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  grid-column-gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 
 p {
-  font-size: 5vmin;
-  margin: 1rem 2rem 1rem 2rem;
+  font-size: 10vmin;
+  margin: 0;
 }
 
 p:hover {
   cursor: pointer;
 }
 
-footer {
-  align-items: center;
+div > iframe {
+  display: flex;
   justify-content: center;
-  position: bottom;
+}
+header {
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas: "frame" "span" "menu1";
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+div > iframe {
+  grid-area: frame;
+  display: flex;
+  justify-content: left;
+}
+
+header > span {
+  grid-area: span;
+}
+div > a {
+  grid-area: menu1;
+  display: flex;
+  justify-content: right;
+  margin: 1rem;
+  text-decoration: none;
+  color: var(--primary);
+}
+
+footer {
+  width: 100vw;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+}
+footer > p {
+  margin: 1rem;
+  text-align: left;
+  font-size: 3vmin;
+  justify-content: flex-start;
 }

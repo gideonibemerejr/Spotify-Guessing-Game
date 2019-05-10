@@ -1,3 +1,16 @@
+// Initialize
+// 1. Attach event listeners - "Next" Button and "Play" button
+// 2. On first time "Next" button is clicked hide rules and show countries, on second   click:
+// --- Init all state variables - hide rules, set result to null, and score to 0, song to null
+// 3. Render
+// 4. Perform Countdown
+// 5. When the "Play" button is clicked: if in countdown, clear count down
+// 6. After the countdown(either way)
+//   - Randomly pick song to display
+//     - Show the selection buttons
+//       - Update Score
+//         - Render
+
 /*----- constants -----*/
 
 // Artist Class that initializes the following properties:
@@ -22,7 +35,7 @@ class Artist {
 // Artists featured in the game
 const skepta = new Artist(
     "Skepta",
-    "England",
+    "UK",
     `<iframe src="https://open.spotify.com/embed/track/1ATVSVN4kc8S2XE7FdyJi8" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`,
     ``,
     ``
@@ -56,14 +69,14 @@ const skepta = new Artist(
     ``
   ),
   dkvpz = new Artist(
-    "Dkvpz",
+    "DKVPZ",
     "Brazil",
     `<iframe src="https://open.spotify.com/embed/track/4CnVCvv9e5DHrOWXvNbJV1" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>`,
     ``,
     ``
   );
 // Array of artist objects to access
-const artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
+let artists = [skepta, burna, roddy, vegedream, chambao, dkvpz];
 
 // Array where artist objects will be stored in order to mark them as played
 let playedArtists = [];
@@ -80,7 +93,7 @@ let playedArtists = [];
 
 /*----- app's state (variables) -----*/
 
-let result, score, artist, button, player;
+let result, score, artist, button, player, timerId;
 
 /*----- cached element references -----*/
 // Game "Board"
@@ -91,12 +104,13 @@ const playerHolder = document.getElementById("content"),
   // Feedback
   feedback = document.getElementById("feedback"),
   // Input
-  input = document.getElementById("input");
-
+  input = document.getElementById("input"),
+  mainButton = document.querySelector("button"),
+  scoreCard = document.querySelector("footer > p");
 /*----- event listeners -----*/
 
 // Button - 'click' (5)
-document.getElementById("button").addEventListener("click", buttonClickHandler);
+mainButton.addEventListener("click", buttonClickHandler);
 
 // Input - 'click'/'select'
 input.addEventListener("click", inputClickHandler);
@@ -104,11 +118,12 @@ input.addEventListener("click", inputClickHandler);
 /*----- functions -----*/
 
 // init -- empties playedArtists, randomly select an Artist from artists[],
+init();
+
 function init() {
   playedArtists = [];
   result = null;
   score = null;
-  artist = getArtist();
 }
 
 // Counter -- counts down and then runs promptGuess
@@ -118,23 +133,43 @@ function init() {
 // render -- takes in artist, trackLink, button,  shows song iframe,  and artist's name + press play feedback
 function render(targetButton) {
   if (targetButton.id === "first") {
-    mountFirstPage();
-    return;
-  }
-  if (targetButton.id === "second") {
     mountSecondPage();
     return;
   }
-  if (targetButton.id === "play") {
+  if (targetButton.id === "second") {
     mountThirdPage();
     return;
   }
+  if (targetButton.id === "play") {
+    clearInterval(timerId);
+    mountGame();
+    return;
+  }
   if (targetButton.id === "continue") {
-    mountFourthPage();
+    mountFifthPage();
+    return;
+  }
+  if (targetButton.id === "continue-game") {
+    remountGame();
+    return;
+  }
+  if (targetButton.getAttribute("aria-label") === artist.country) {
+    result = true;
+    score += 1;
+    mountCorrect();
+    return;
+  }
+  if (targetButton.id === "restart") {
+    mountGameRestart();
+    return;
+  }
+  if (targetButton.getAttribute("aria-label") !== artist.country) {
+    result = false;
+    score += 0;
+    mountIncorrect();
     return;
   }
 }
-// TODO: countdown -- counts user down from 5 and runs mountSong and/or init or something
 
 // Click handlers for .addEventListeners above
 function buttonClickHandler(e) {
@@ -154,22 +189,33 @@ function buttonClickHandler(e) {
     case "restart":
       mountButton(e.target);
       break;
+    case "continue-game":
+      if (artists <= 1) {
+        mountButton(restartGame());
+      } else {
+        mountButton(e.target);
+        break;
+      }
     default:
+      console.log(e.target);
       console.log("wtf");
   }
 }
 
 // when input is clicked
 function inputClickHandler(e) {
-  console.log(e.target);
+  mountButton(e.target);
 }
 
-// getArtist -- changes global artist state variable to random artist from the array
-function getArtist() {
-  return (artist = artists[Math.floor(Math.random() * artists.length)]);
+function arrayRemove(array, value) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === value) {
+      array.splice(i, 1);
+      playedArtists.push(artist);
+    }
+  }
 }
-
-/*-- Mounting Function --*/
+/*-- MOUNTING FUNCTIONS --*/
 
 // mountButton -- change button to the target and render the button
 function mountButton(targetButton) {
@@ -177,9 +223,8 @@ function mountButton(targetButton) {
   render(targetButton);
 }
 
-/*-- Mounting Function to run inside render() --*/
-function mountFirstPage() {
-  console.log("first");
+// Functions to run inside render() --*/
+function mountSecondPage() {
   textHolder.innerHTML = `
       <ul>
         <li>USA</li>
@@ -193,41 +238,143 @@ function mountFirstPage() {
   button.id = "second";
 }
 
-function mountSecondPage() {
-  console.log("second");
-  textHolder.innerHTML = ``;
+function mountThirdPage() {
+  console.log(textHolder.textContent);
+  textHolder.style.display = "none";
   countdownText.style.display = "block";
   button.id = "play";
   button.classList.remove("secondary");
   button.classList.add("primary");
   button.textContent = "Play Game!";
+  firstCountdown(mountGame);
   return;
 }
 // This begins gameplay
-function mountThirdPage() {
-  console.log("third");
+function mountGame() {
   button.id = "continue";
+  button.setAttribute("disabled", "");
   button.classList.remove("primary");
   button.classList.add("secondary");
+  button.classList.add("disabled");
   button.textContent = "Continue";
   init();
+  artist = getArtist();
+  arrayRemove(artists, artist);
+  console.log(playedArtists);
+  secondCountdown(enableButton);
   countdownText.style.display = "none";
-  playerHolder.innerHTML = artist.mountSong();
+  playerHolder.innerHTML += artist.mountSong();
   feedback.style.display = "block";
-  player = document.querySelector("iframe").contentWindow;
-  console.log(artist);
 }
 
-function mountFourthPage() {
-  console.log("fourth");
+function remountGame() {
+  textHolder.textContent = ``;
+  button.id = "continue";
+  button.setAttribute("disabled", "");
+  button.classList.remove("primary");
+  button.classList.add("secondary");
+  button.classList.add("disabled");
+  button.textContent = "Continue";
+  artist = getArtist();
+  arrayRemove(artists, artist);
+  secondCountdown(enableButton);
+  countdownText.style.display = "none";
+  playerHolder.innerHTML += artist.mountSong();
+  feedback.style.display = "block";
+}
+
+function mountFifthPage() {
+  textHolder.style.display = "block";
+  button.textContent = "Continue Playing?";
   playerHolder.innerHTML = ``;
-  board.innerHTML = `
+  textHolder.innerHTML = `
       <h2>Where is</h2>
       <h1 id="artist__name">${artist.name}</h1>
       <h2>From?</h2>`;
+  input.style.display = "grid";
+  button.style.display = "none";
+}
+
+function mountCorrect() {
+  mainButton.style.display = "block";
+  mainButton.id = "continue-game";
+  input.style.display = "none";
+  textHolder.innerHTML = `
+  <h1 id="artist__name">Correct!</h1>
+  <h2>${artist.name} is from ${artist.country}</h2>`;
+  scoreCard.textContent = `${score} out of 6 correct`;
+}
+
+function mountIncorrect() {
+  mainButton.style.display = "block";
+  mainButton.id = "continue-game";
+  input.style.display = "none";
+  textHolder.innerHTML = `
+  <h1 id="artist__name">Oops!</h1>
+  <h2>${artist.name} is from ${artist.country}</h2>`;
+  scoreCard.textContent = `${score} out of 6 correct`;
+}
+
+function mountGameRestart() {
+  artists = playedArtists;
+  mainButton.textContent = "Play Again";
+  textHolder.innerHTML = `
+  <h1 id="artist__name">Game Over</h1>
+  <h2>Nice!</h2>
+  <h2>You got ${score} correct out of ${playedArtists.length} songs</h2>`;
+  playerHolder.innerHTML = `<h1 id="countdown" style="display: block;"></h1>`;
+  init();
+  mainButton.id = "first";
+}
+
+function restartGame() {
+  console.log(
+    `This is the ${mainButton} button when the restartGame runs below is its id after we change it to "restart"`
+  );
+  mainButton.id = "restart";
+  return mainButton;
+}
+/*-- Countdowns --*/
+
+// counts down from 5 and allows user to click button to the guessing screen
+function secondCountdown(cb) {
+  let count = 1;
+  timerId = setInterval(function() {
+    count--;
+    if (count) {
+      return;
+    } else {
+      clearInterval(timerId);
+      cb();
+    }
+  }, 1000);
+}
+
+// counts down from five and starts the game
+function firstCountdown(cb) {
+  let count = 5;git 
+  countdownText.textContent = count;
+  timerId = setInterval(function() {
+    count--;
+    if (count) {
+      countdownText.textContent = count;
+    } else {
+      clearInterval(timerId);
+      cb();
+    }
+  }, 1000);
+}
+
+/*-- UTILITY FUNCTIONS --*/
+
+// enableButton -- removes the disabled button attribute, disabled class, and hides the feedback element enabling the user to // continue to the guessing page.
+function enableButton() {
+  button.removeAttribute("disabled", "");
+  button.classList.remove("disabled");
   feedback.style.display = "none";
 }
 
-// function mountFirstPage() {
-//   return;
-// }
+// getArtist -- changes global artist state variable to random artist from the array
+function getArtist() {
+  return (artist = artists[Math.floor(Math.random() * artists.length)]);
+}
